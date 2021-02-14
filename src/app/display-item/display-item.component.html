@@ -1,0 +1,31 @@
+<div *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div *ngIf="!isLoading">
+    <h2>Welcome</h2>
+   
+    <table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Action</th>
+    </tr>
+    <tbody>
+    <tr *ngFor="let data of userdata,let i=index">
+        <td>{{data.id}}</td>  
+        <td>{{data.title}}</td>
+        <td>{{data.description}}</td>  
+        <td>{{data.category}}</td>
+        <td>{{data.price}}</td>
+        <td><img src="{{data.image}}" width="75" height="75" /></td>   
+        <td><button class="btn btn-primary" (click)="handleAddToCart(i)">Add to Cart</button></td>
+    </tr>
+    </tbody>
+    
+    </table>
+    
+</div>

@@ -1,0 +1,29 @@
+<div *ngIf="isLoading">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+<div *ngIf="!isLoading">
+    <table class="table table-hover">
+    <tr>
+        
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Image</th>
+       
+    </tr>
+    <tbody>
+    <tr>
+       
+        <td>{{productdata.title}}</td>
+        <td>{{productdata.description}}</td>  
+        <td>{{productdata.category}}</td>
+        <td>{{productdata.price}}</td>
+        <td><img src="{{productdata.image}}" width="75" height="75" /></td>   
+       
+    </tr>
+    </tbody>
+    
+    </table>
+    
+</div>
