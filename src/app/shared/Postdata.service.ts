@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 import { Injectable } from "@angular/core";
-import {Observable, throwError} from "rxjs";
+import { rejects } from "assert";
+import {Observable, throwError,BehaviorSubject} from "rxjs";
 import {catchError} from "rxjs/operators";
 import { Product } from "./product";
 import {User} from "./user";
@@ -18,7 +19,9 @@ interface AuthResponseData{
 export class PostService{
     public data:Product[]=[];
     public user:User[]=[];
-   
+    private islogin:boolean=false;
+    userdata = new BehaviorSubject<User>(null)
+    private key:any='AIzaSyCqZy3QbPmMa1lHe6E5x0WL50Csl1l4FbI';
     constructor(private http:HttpClient)
     {
 
@@ -31,9 +34,21 @@ export class PostService{
     //{
       //  return this.http.post('https://reqres.in/api/users', '{ "first_name": userdata.firstName, "last_name": userdata.lastName }')
     //}
+    isAuthenticated()
+    {
+        const promise=new Promise(
+            (resolve, reject)=>{
+                setTimeout(()=>{
+                    resolve(this.islogin);
+                },800)
+            }
+        );
+        //this.loggedin();
+        return promise;
+    }
     public register(email:string, password:string)
     {
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCqZy3QbPmMa1lHe6E5x0WL50Csl1l4FbI',
+        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+this.key,
         {
             email:email,
             password:password,
@@ -43,7 +58,7 @@ export class PostService{
     }
     public login(email:string, password:string)
     {
-        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCqZy3QbPmMa1lHe6E5x0WL50Csl1l4FbI',
+        return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+this.key,
         {
             email:email,
             password:password,
@@ -67,4 +82,13 @@ export class PostService{
         return throwError(errorMessage);
         
     }
+    loggedin()
+    {
+        this.islogin=true;
+    }
+    loggedout()
+    {
+        this.islogin=false;
+    }
+    
 }

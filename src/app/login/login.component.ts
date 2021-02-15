@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     }
     else{
      this.isLoading=true; 
+      this.postservice.loggedin();
       this.postservice.login(this.signupForm.value.username, this.signupForm.value.password).subscribe(
         responseData=>{
           this.successlogin=true;
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
           
           this.submitted = true;
           this.isLoading = false;
-         
+          
           this.router.navigate(['/DisplayItem']);
         },
         errorMessage=>{

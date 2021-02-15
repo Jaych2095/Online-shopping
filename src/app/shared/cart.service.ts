@@ -19,7 +19,7 @@ export class CartService {
   }
 
   addProductToCart(id:number,product: Product): Observable<any> {
-    return this.http.put('https://fakestoreapi.com/carts/1', {
+    return this.http.put('https://fakestoreapi.com/carts', {
       userid: 3,
       date: '2019-12-10',
       product: [{ productId: product.id, quantity: 3 }],

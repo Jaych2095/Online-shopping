@@ -6,14 +6,16 @@ import { LoginComponent } from './login/login.component';
 import { ProductComponent } from './product/product.component';
 import { RegisterComponent } from './register/register.component';
 import { SearchComponent } from './search/search.component';
+import {AuthGuard} from "./auth-guard";
 
 const appRoutes:Routes=[
+    {path:'',redirectTo:'/login',pathMatch:'full'},
     {path:'login', component:LoginComponent},
     {path:'register', component:RegisterComponent},
     {path:'search', component:SearchComponent},
-    {path:'DisplayItem', component:DisplayItemComponent},
+    {path:'DisplayItem', component:DisplayItemComponent,canActivate:[AuthGuard]},
     {path:'search/:id', component:ProductComponent},
-    {path:'cart', component:CartComponent}
+    {path:'cart', component:CartComponent, canActivate:[AuthGuard]}
     
 ]
 @NgModule({

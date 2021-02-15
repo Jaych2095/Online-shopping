@@ -21,10 +21,11 @@ export class DisplayItemComponent implements OnInit {
     this.isLoading=true;
   }
  handleAddToCart(index:number) {
-    this.cartService.addProductToCart(index,this.productItem[index]).subscribe(() => {
+    this.cartService.getCartItems().subscribe(() => {
       console.log("Success");
     })
   }
+  
   public onFetchPosts() {
  
     this.sharedservice.getData().subscribe(
@@ -34,5 +35,10 @@ export class DisplayItemComponent implements OnInit {
         this.isLoading=false;//this.totalPages=responseData['total_pages'];
       }
     );
+  }
+  onlogout()
+  {
+    this.sharedservice.loggedout();
+    this.router.navigate(['/login']);
   }
 }

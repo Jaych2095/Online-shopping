@@ -16,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
+import { AuthGuard } from './auth-guard';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { CartItemComponent } from './cart/cart-item/cart-item.component';
     AppRoutingModule
 
   ],
-  providers: [PostService],
+  providers: [PostService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
