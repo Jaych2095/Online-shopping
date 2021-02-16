@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-search',
@@ -8,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private toaster:NotificationService) { }
 
   ngOnInit(): void {
+    this.toaster.showInfo("Enter the Keywords of your Preferable Product","The List is So Huge!!!");
   }
    onKey(event:any) {
     // Declare variables
@@ -34,6 +36,7 @@ export class SearchComponent implements OnInit {
   }
   onEdit(id)
   {
+    this.toaster.showInfo("Showing Your Product", "This Website Says:")
     this.router.navigateByUrl(`/search/${id}`);
   }
   

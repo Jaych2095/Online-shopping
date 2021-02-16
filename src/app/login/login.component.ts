@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { PostService } from '../shared/Postdata.service';
 import { User } from '../shared/user';
 import { NgForm } from '@angular/forms';
+import { NotificationService } from '../notification.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private postservice:PostService) { }
+  constructor(private router: Router, private postservice:PostService,private toaster:NotificationService) { }
 
   ngOnInit(): void {
   }
@@ -23,7 +25,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if(this.signupForm.value.username.includes(" ") || this.signupForm.value.password.includes(" "))
     {
-      alert("Please Remove Space From Field");
+      this.toaster.showWarning("Remove Space from the Field", "Login Error");
     }
     else{
      this.isLoading=true; 
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
           
           this.router.navigate(['/DisplayItem']);
+          this.toaster.showSuccess("Let's crash the market","Login Successful");
         },
         errorMessage=>{
           this.error=errorMessage;

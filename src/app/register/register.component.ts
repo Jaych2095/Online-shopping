@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PostService } from '../shared/Postdata.service';
 import { User } from '../shared/user';
 import { NgForm } from '@angular/forms';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import { NgForm } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   @ViewChild('f') signupForm: NgForm;
   constructor( private postservice:PostService,
-    private router: Router,) {
+    private router: Router,private toaster:NotificationService) {
       this.userdata;
      }
   public userdata:User;
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if(this.signupForm.value.username.includes(" ") || this.signupForm.value.password.includes(" ") || this.signupForm.value.firstname.includes(" ") || this.signupForm.value.lastname.includes(" "))
     {
-      alert("Please Remove Space From Field");
+      this.toaster.showWarning("Please Remove Space from the field","Sign Up Error");
     }
     else{
     this.isLoading=true;
@@ -45,10 +46,12 @@ export class RegisterComponent implements OnInit {
         console.log(responseData);
         this.submitted = true;
         this.router.navigate(['/login']);
+        this.toaster.showSuccess("You need to sign in with Credential","Sign Up Successfully Done");
         this.isLoading=false;
       },
       errorMessage=>{
         this.error=errorMessage;
+        this.toaster.showError(this.error, "Error Occured!!");
         this.isLoading=false;
       }
     )

@@ -17,6 +17,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { AuthGuard } from './auth-guard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { AuthGuard } from './auth-guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
 
   ],
   providers: [PostService, AuthGuard],
