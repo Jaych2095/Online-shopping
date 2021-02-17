@@ -13,7 +13,8 @@ const appRoutes:Routes=[
     {path:'login', component:LoginComponent},
     {path:'register', component:RegisterComponent},
     {path:'search', component:SearchComponent},
-    {path:'DisplayItem', component:DisplayItemComponent,canActivate:[AuthGuard]},
+    {path:'DisplayItem', component:DisplayItemComponent,
+    canActivate:[AuthGuard]},
     {path:'search/:id', component:ProductComponent},
     {path:'cart', component:CartComponent, canActivate:[AuthGuard]}
     

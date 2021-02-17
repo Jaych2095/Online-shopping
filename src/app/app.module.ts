@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PostService } from './shared/Postdata.service';
 import { LoadingSpinnerComopnent } from './loading-spinner/loading-spinner.component';
@@ -19,6 +19,7 @@ import { CartItemComponent } from './cart/cart-item/cart-item.component';
 import { AuthGuard } from './auth-guard';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { authIntercepterService } from './shared/auth-interceptor.sevice';
 
 
 @NgModule({
@@ -46,7 +47,14 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
 
   ],
-  providers: [PostService, AuthGuard],
+  providers: [PostService, AuthGuard
+  ,
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:authIntercepterService,
+      multi:true
+    }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
